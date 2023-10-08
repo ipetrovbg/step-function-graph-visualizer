@@ -77,12 +77,12 @@ const App = () => {
             });
           });
         } else {
-          setError(false);
           return res.json();
         }
       })
       .then((data) => {
         if (data) {
+          setError(false);
           setAslData(data);
         }
       })
@@ -106,7 +106,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="p-4 grid grid-flow-row-dense gap-4 grid-cols-11">
+    <div className="p-4 grid grid-flow-row-dense gap-4 grid-cols-11 ">
       <TextArea
         error={error}
         ymlStr={ymlStr}
@@ -116,11 +116,15 @@ const App = () => {
       />
       <GenerateButton onClick={getAslData} />
       <div
-        className={`col-span-5 rounded border-solid border-4 ${
-          error ? "border-rose-600" : " border-emerald-800"
+        className={`rounded col-span-5 w-full p-1 h-full bg-gradient-to-r ${
+          error
+            ? "from-red-600 via-purple-700 to-rose-600"
+            : "from-indigo-500 via-green-500 to-teal-500"
         }`}
       >
-        <AWSSfnGraph data={aslData} onError={console.log} />
+        <div className="rounded bg-slate-50 h-full w-full">
+          <AWSSfnGraph data={aslData} onError={console.log} />
+        </div>
       </div>
     </div>
   );
