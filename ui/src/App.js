@@ -3,6 +3,7 @@ import React from "react";
 import AWSSfnGraph from "@tshepomgaga/aws-sfn-graph";
 import "@tshepomgaga/aws-sfn-graph/index.css";
 import TextArea from "./TextArea";
+import GenerateButton from "./GenerateButton";
 
 const SAMPLE_DATA = `stepFunctions:
   validate: true
@@ -44,12 +45,13 @@ const SAMPLE_DATA = `stepFunctions:
             End: true`;
 
 const App = () => {
-  let url =
-    "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
+  let url = "";
 
   if (process.env.NODE_ENV !== "development") {
     url =
       "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
+  } else {
+    url = "http://localhost:9000/lambda-url/step_function_parser/";
   }
 
   const [ymlStr, setYmlStr] = React.useState(SAMPLE_DATA);
@@ -58,8 +60,6 @@ const App = () => {
   const getAslData = React.useCallback(async () => {
     fetch(url, {
       method: "POST",
-      mode: "cors",
-      redirect: "follow",
       body: ymlStr,
     })
       .then((res) => {
@@ -87,7 +87,6 @@ const App = () => {
         }
       })
       .catch((err) => {
-        console.log(err);
         setError(true);
         setAslData({
           StartAt: `${err.message}`,
@@ -115,15 +114,7 @@ const App = () => {
           setYmlStr(str);
         }}
       />
-      <div className="flex justify-center self-center">
-        <button
-          onClick={() => getAslData()}
-          className="w-full bg-indigo-600 rounded text-slate-50 p-4"
-        >
-          Generate Graph
-        </button>
-      </div>
-
+      <GenerateButton onClick={getAslData} />
       <div
         className={`col-span-5 rounded border-solid border-4 ${
           error ? "border-red-600" : " border-indigo-600"
