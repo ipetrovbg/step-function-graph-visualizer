@@ -90,10 +90,9 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install dependencies
-        run: cd ui && npm install
+        run: cd ui && npm ci
       - name: Build
         run: cd ui && npm run build
-      - run: cd ui && ls
       - name: Deploy
         run: aws s3 sync ./build s3://step-function-graph-visualizer
 
