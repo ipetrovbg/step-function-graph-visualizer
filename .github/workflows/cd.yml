@@ -35,5 +35,5 @@ jobs:
       - name: Build
         run: cd ui && npm run build
       - name: Deploy
-        run: cd ui && aws s3 sync ./build s3://step-function-graph-visualizer
+        run: cd ui && aws s3 cp ./build s3://step-function-graph-visualizer
 
