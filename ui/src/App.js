@@ -51,7 +51,6 @@ const App = () => {
   if (process.env.NODE_ENV !== "development") {
     url =
       "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
-    console.log("url", url);
   }
 
   const [ymlStr, setYmlStr] = React.useState(SAMPLE_DATA);
@@ -64,11 +63,22 @@ const App = () => {
       redirect: "follow",
       body: ymlStr,
     })
+      .catch((err) => {
+        setError(err);
+        return {
+          StartAt: `${err}`,
+          States: {
+            [`${err}`]: {
+              Type: "Task",
+              End: true,
+            },
+          },
+        };
+      })
       .then((res) => {
         if (!res.ok) {
           return res.text().then((text) => {
             setError(text);
-            // reporting errors directly into the graph itself
             return {
               StartAt: `${text}`,
               States: {

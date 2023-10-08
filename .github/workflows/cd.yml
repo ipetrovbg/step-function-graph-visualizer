@@ -85,5 +85,5 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Install, Build, Deploy
-        run: cd ui && npm ci && npm run build && ls && aws s3 sync ./build s3://step-function-graph-visualizer
+        run: cd ui && npm ci && npm run build && ls && aws s3 sync ./build s3://step-function-graph-visualizer --delete
 
