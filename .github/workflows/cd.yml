@@ -39,6 +39,7 @@ jobs:
           key: cargo-build-cache
       - name: Release lambda
         run: |
+          cd server
           pip install cargo-lambda
           cargo lambda build --release
       - run: npm install
