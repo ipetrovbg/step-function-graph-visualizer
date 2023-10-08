@@ -2,6 +2,9 @@ name: Build & deploy
 
 env:
   NODE_VERSION: '18'
+  TARGET: x86_64-unknown-linux-musl
+  BUILD_PATH: target/x86_64-unknown-linux-musl/release
+
 
 on:
   push:
@@ -9,6 +12,45 @@ on:
       - main
 
 jobs:
+  server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          override: true
+      - name: Add linux-musl target
+        run: |
+          rustup target add ${{ env.TARGET }}
+          sudo apt install musl-tools pkg-config libssl-dev
+          cargo clean
+          OPENSSL_LIB_DIR="/usr/lib/x86_64-linux-gnu"
+          OPENSSL_INCLUDE_DIR="/usr/include/openssl"
+      - name: Cache cargo registry
+        uses: actions/cache@v3
+        continue-on-error: false
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: cargo-build-cache
+      - name: Release lambda
+        run: |
+          pip install cargo-lambda
+          cargo lambda build --release
+      - run: npm install
+      - name: Serverless deploy
+        uses: serverless/github-action@v3.2
+        with:
+          args: -c "cd ./server && serverless deploy"
+          entrypoint: /bin/sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
   checkS3:
     runs-on: ubuntu-latest
     steps:
