@@ -88,6 +88,7 @@ const App = () => {
         }
       })
       .catch((err) => {
+        console.log(err);
         setError(true);
         setAslData({
           StartAt: `${err.message}`,
