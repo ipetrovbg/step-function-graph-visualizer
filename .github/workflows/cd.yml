@@ -24,6 +24,7 @@ jobs:
           override: true
       - name: Add linux-musl target
         run: |
+          cd server
           rustup target add ${{ env.TARGET }}
           sudo apt install musl-tools pkg-config libssl-dev
           cargo clean
