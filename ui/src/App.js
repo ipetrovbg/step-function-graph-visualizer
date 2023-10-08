@@ -63,23 +63,11 @@ const App = () => {
       redirect: "follow",
       body: ymlStr,
     })
-      .catch((err) => {
-        setError(err);
-        return {
-          StartAt: `${err}`,
-          States: {
-            [`${err}`]: {
-              Type: "Task",
-              End: true,
-            },
-          },
-        };
-      })
       .then((res) => {
         if (!res.ok) {
           return res.text().then((text) => {
-            setError(text);
-            return {
+            setError(true);
+            setAslData({
               StartAt: `${text}`,
               States: {
                 [`${text}`]: {
@@ -87,7 +75,7 @@ const App = () => {
                   End: true,
                 },
               },
-            };
+            });
           });
         } else {
           setError(false);
@@ -98,6 +86,18 @@ const App = () => {
         if (data) {
           setAslData(data);
         }
+      })
+      .catch((err) => {
+        setError(true);
+        setAslData({
+          StartAt: `${err.message}`,
+          States: {
+            [`${err.message}`]: {
+              Type: "Task",
+              End: true,
+            },
+          },
+        });
       });
   }, [url, ymlStr]);
 
