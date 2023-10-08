@@ -13,7 +13,6 @@ on:
 
 jobs:
   server:
-    needs: deploy-ui
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -87,5 +86,5 @@ jobs:
       - name: Build
         run: cd ui && npm run build
       - name: Deploy
-        run: cd ui && aws s3 sync ./build s3://step-function-graph-visualizer
+        run: cd ui && ls && aws s3 sync ./build s3://step-function-graph-visualizer
 
