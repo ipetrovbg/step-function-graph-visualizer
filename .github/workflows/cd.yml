@@ -1,7 +1,7 @@
 name: Build & deploy
 
 env:
-  NODE_VERSION: '18'
+  NODE_VERSION: 18
   TARGET: x86_64-unknown-linux-musl
   BUILD_PATH: target/x86_64-unknown-linux-musl/release
 
@@ -84,6 +84,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
-      - name: Install, Build, Deploy
-        run: cd ui && npm ci && npm run build && ls && aws s3 sync ./build s3://step-function-graph-visualizer --delete
+      - run: cd ui && npm ci
+      - run: cd ui && npm run build
+      - run: cd ui && aws s3 sync ./build s3://step-function-graph-visualizer --delete
 
