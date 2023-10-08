@@ -40,9 +40,6 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
                             let resp = Response::builder()
                             .status(StatusCode::BAD_REQUEST)
                             .header("content-type", "text/html")
-                            .header("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token")
-                            .header("Access-Control-Allow-Methods", "OPTIONS,POST")
-                            .header("Access-Control-Allow-Origin", "*")
                             .body(message.into())?;
                         Ok(resp)
                     },
@@ -53,9 +50,6 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
                 let resp = Response::builder()
                     .status(StatusCode::BAD_REQUEST)
                     .header("content-type", "text/html")
-                    .header("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token")
-                    .header("Access-Control-Allow-Methods", "OPTIONS,POST")
-                    .header("Access-Control-Allow-Origin", "*")
                     .body(message.into())?;
 
                 Ok(resp)
@@ -67,9 +61,6 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
             let resp = Response::builder()
                 .status(StatusCode::BAD_REQUEST)
                 .header("content-type", "text/html")
-                .header("Access-Control-Allow-Headers", "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token")
-                .header("Access-Control-Allow-Methods", "OPTIONS,POST")
-                .header("Access-Control-Allow-Origin", "*")
                 .body(message.into())?;
 
             Ok(resp)

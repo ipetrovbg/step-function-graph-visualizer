@@ -4,8 +4,7 @@ import AWSSfnGraph from "@tshepomgaga/aws-sfn-graph";
 import "@tshepomgaga/aws-sfn-graph/index.css";
 import TextArea from "./TextArea";
 
-const SAMPLE_DATA = `
-stepFunctions:
+const SAMPLE_DATA = `stepFunctions:
   validate: true
   stateMachines:
     DemoStateMachine:
@@ -42,11 +41,11 @@ stepFunctions:
             Next: NoChoice 
           NoChoice:
             Type: Pass
-            End: true
-`;
+            End: true`;
 
 const App = () => {
-  let url = "http://localhost:9000/lambda-url/step_function_parser/";
+  let url =
+    "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
 
   if (process.env.NODE_ENV !== "development") {
     url =

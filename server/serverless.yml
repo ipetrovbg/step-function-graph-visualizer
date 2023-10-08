@@ -24,5 +24,4 @@ functions:
         - "**/**"
       include:
         - "package.json"
-    url:
-      cors: true
+    url: true
