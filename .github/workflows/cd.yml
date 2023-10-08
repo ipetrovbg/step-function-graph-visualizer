@@ -13,8 +13,6 @@ on:
 
 jobs:
   server:
-    if: always()
-    needs: deploy-ui
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

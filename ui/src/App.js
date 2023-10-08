@@ -49,7 +49,8 @@ const App = () => {
   let url = "http://localhost:9000/lambda-url/step_function_parser/";
 
   if (process.env.NODE_ENV !== "development") {
-    url = "production-url";
+    url =
+      "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
   }
 
   const [ymlStr, setYmlStr] = React.useState(SAMPLE_DATA);
