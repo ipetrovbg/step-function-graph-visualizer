@@ -1,0 +1,28 @@
+service: step_function_yml_parser
+
+provider:
+  name: aws
+  runtime: provided.al2
+  memorySize: 128
+  versionFunctions: false
+  region: eu-central-1
+
+plugins:
+  - cargo-lambda-serverless
+
+package:
+  individually: true
+
+functions:
+  step_function_parser:
+    handler: bootstrap
+    cargo:
+      path: 'target/lambda/step_function_parser/bootstrap'
+    package:
+      individually: true
+      exclude:
+        - "**/**"
+      include:
+        - "package.json"
+    url:
+      cors: true
