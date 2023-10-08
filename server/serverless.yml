@@ -1,4 +1,4 @@
-service: step_function_yml_parser
+service: step-function
 
 provider:
   name: aws
