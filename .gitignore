@@ -10,7 +10,6 @@ server/node_modules
 /coverage
 
 # production
-ui/build
 server/target
 
 # misc
