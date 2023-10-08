@@ -117,7 +117,7 @@ const App = () => {
       <GenerateButton onClick={getAslData} />
       <div
         className={`col-span-5 rounded border-solid border-4 ${
-          error ? "border-red-600" : " border-indigo-600"
+          error ? "border-rose-600" : " border-emerald-800"
         }`}
       >
         <AWSSfnGraph data={aslData} onError={console.log} />
