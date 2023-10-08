@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "serverless": "^3.19.0",
     "cargo-lambda-serverless": "0.0.3"
   }
 }
