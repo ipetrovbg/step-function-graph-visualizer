@@ -72,20 +72,13 @@ jobs:
     needs: checkS3
     steps:
       - uses: actions/checkout@v3
-      - name: Cache .npm cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-npm-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
-      - name: Use Node.js ${{env.NODE_VERSION}}
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
@@ -94,5 +87,5 @@ jobs:
       - name: Build
         run: cd ui && npm run build
       - name: Deploy
-        run: aws s3 sync ./build s3://step-function-graph-visualizer
+        run: cd ui && aws s3 sync ./build s3://step-function-graph-visualizer
 
