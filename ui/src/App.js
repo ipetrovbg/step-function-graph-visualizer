@@ -51,6 +51,7 @@ const App = () => {
   if (process.env.NODE_ENV !== "development") {
     url =
       "https://6mdgghetvnrbd6bnvtqnrvgure0atymm.lambda-url.eu-central-1.on.aws/";
+    console.log("url", url);
   }
 
   const [ymlStr, setYmlStr] = React.useState(SAMPLE_DATA);
