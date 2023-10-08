@@ -90,6 +90,7 @@ const App = () => {
   }, [url, ymlStr]);
 
   React.useEffect(() => {
+    console.log("useEffect");
     getAslData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
