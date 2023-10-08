@@ -91,6 +91,7 @@ const App = () => {
 
   React.useEffect(() => {
     getAslData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
