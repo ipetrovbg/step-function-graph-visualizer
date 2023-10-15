@@ -13,7 +13,8 @@ use step_function::Serverless;
 async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
     let body = event.body();
     let str_body = std::str::from_utf8(body.as_ref()).expect("Not a UTF-8 string");
-    print!("BODY: {:?}", &str_body);
+    let strip_new_line_body = str_body.replace("\n", "");
+    info!("BODY: {}", strip_new_line_body);
 
     match serde_yaml::from_str::<Serverless>(&str_body) {
         Ok(serverless) => {
