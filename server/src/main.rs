@@ -30,7 +30,7 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
                             .header("Access-Control-Allow-Origin", "*")
                             .body(serde_json::to_string(&state_machine.definition)?.into())?;
 
-                            info!("{}", &state_machine);
+                            println!("STATE MACHINE: {}", &state_machine);
 
                         Ok(resp)
                     },
