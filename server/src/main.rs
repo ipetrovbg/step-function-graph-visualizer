@@ -13,7 +13,7 @@ use step_function::Serverless;
 async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
     let body = event.body();
     let str_body = std::str::from_utf8(body.as_ref()).expect("Not a UTF-8 string");
-    info!("STATE MACHINE BODY: {}", &str_body);
+    print!("BODY: {:?}", &str_body);
 
     match serde_yaml::from_str::<Serverless>(&str_body) {
         Ok(serverless) => {
@@ -30,7 +30,6 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
                             .header("Access-Control-Allow-Methods", "OPTIONS,POST")
                             .header("Access-Control-Allow-Origin", "*")
                             .body(serde_json::to_string(&state_machine.definition)?.into())?;
-
 
                         Ok(resp)
                     },
@@ -72,6 +71,7 @@ async fn function_handler(event: Request) -> Result<Response<Body>, Error> {
 async fn main() -> Result<(), Error> {
     tracing_subscriber::fmt()
         .with_max_level(tracing_subscriber::filter::LevelFilter::INFO)
+        .with_target(false)
         .without_time()
         .init();
 
